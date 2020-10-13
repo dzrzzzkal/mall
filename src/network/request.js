@@ -13,14 +13,14 @@ export function request(config) {
   // 2. axios拦截器
   // 2.1请求拦截
   instance.interceptors.request.use(config => {
-    console.log(config)
+    // console.log(config)
     return config
   }, err => {
-    config.log(err)
+    console.log(err)
   })
   // 2.2响应拦截
-  instance.interceptors.response(res => {
-    console.log(res)
+  instance.interceptors.response.use(res => {
+    // console.log(res)
     return res.data
   }, err => {
     console.log(err)
@@ -42,7 +42,11 @@ export function request(config) {
 // }).catch(err => {
 //   console.log(err)
 // })
-
+// 以上非最终版本，还可以继续封装，然后拆开。
+// 即下一层根据某页面对此页面调用多个request()的封装.js 中传入url等参数，然后此页面.vue在调用这层封装时，写入调用request()的数据处理方法.then().catch。
+// e.g. home.js & home.vue。
+// home.js中定义function getHomeMultidata()并return request(config)，写入参数config({url: '',…})
+// home.vue中created()时调用getHomeMultidata()，此时已无需传参，写入数据处理方法.then({}).catch({})
 
 
 
